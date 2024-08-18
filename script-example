@@ -1,0 +1,4 @@
+#!/bin/sh
+curl -s -H "Content-Type: application/json" \
+  "https://boot.pluto.tv/v4/start?appName=web&appVersion=9.3.0-69146e96681a70e0e5f4f40942d0abc67f04864a&clientID=acc1a983-38a0-4ab0-af45-4482541dd911&clientModelNumber=1.0.0&channelID=5efbd39f8c4ce900075d7698" \
+  | jq '[.EPG[0].timelines[] | [{title: .title, name: .episode.name, description: .episode.description, start: .start, episode: (.episode.slug | capture("(?<season>\\d+)-(?<episode>\\d+)$") | "s\(.season)e\(.episode)")}]]'
